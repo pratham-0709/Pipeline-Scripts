@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    environment {
+        name = 'testuser'
+    }
+    parameters {
+        string(name: 'Person', defaultValue: 'TestUser', description: "Who ARE YOU?")
+        booleanParam(name: 'isMale', defaultValue: true, description: "")
+        choice(name: 'City', choices: ['nashik', 'pune', 'mumbai'], description: "")
+    }
+    stages {
+        stage('TEST') {
+            steps {
+                echo 'Hello World'
+                sh 'echo "${BUILD_ID}"'
+                sh 'echo "${name}"'
+            }
+        }
+        stage('BUILD') {
+            steps {
+                sh 'echo "${Person}"'
+            }
+        }
+        stage('DEPLOY TEST') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('DEPLOY PROD') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+    post {
+        always {
+           echo "Hello To The Server"
+        }
+        success{
+            echo "Success"
+        }
+        failure{
+            echo "Failure"
+        }
+    }
+}
+
+
